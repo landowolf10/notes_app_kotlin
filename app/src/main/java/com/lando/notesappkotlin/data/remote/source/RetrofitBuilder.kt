@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitBuilder {
-    private const val BASE_URL = "http://10.0.2.2:3000/"
+    private const val BASE_URL = "http://192.168.0.15:3000/"
     private val interceptor = HttpLoggingInterceptor()
 
     fun getRetrofit(): Retrofit
@@ -25,7 +25,4 @@ object RetrofitBuilder {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
-    //val apiService: wNoteRemoteApi = getRetrofit().create(NoteRemoteApi::class.java)
-    val userService: UserRemoteApi = getRetrofit().create(UserRemoteApi::class.java)
 }

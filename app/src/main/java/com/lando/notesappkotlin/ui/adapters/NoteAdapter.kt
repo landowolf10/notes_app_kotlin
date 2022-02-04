@@ -52,12 +52,12 @@ class NoteAdapter(note: ArrayList<Note>): RecyclerView.Adapter<NoteAdapter.ViewH
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
-        val binding = CardViewBinding.bind(view)
+        private val binding = CardViewBinding.bind(view)
 
         fun render(item: Note)
         {
-            var noteTitle: TextView = itemView.findViewById(R.id.txtTitle)
-            var noteContent: TextView = itemView.findViewById(R.id.txtContent)
+            val noteTitle: TextView = itemView.findViewById(R.id.txtTitle)
+            val noteContent: TextView = itemView.findViewById(R.id.txtContent)
 
             noteTitle.text = item.title
             noteContent.text = item.content
@@ -74,7 +74,7 @@ class NoteAdapter(note: ArrayList<Note>): RecyclerView.Adapter<NoteAdapter.ViewH
             binding.btnDelete.setOnClickListener {
                 val noteAPI = NoteRemoteDataSource()
                 val noteID: Int = item.id
-                var itemPosition = adapterPosition
+                val itemPosition = adapterPosition
 
                 noteList.removeAt(itemPosition)
                 noteAPI.deleteNote(noteID)
