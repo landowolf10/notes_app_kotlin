@@ -10,8 +10,8 @@ import com.lando.notesappkotlin.R
 import com.lando.notesappkotlin.data.model.note.Note
 import com.lando.notesappkotlin.data.remote.source.note.NoteRemoteDataSource
 import com.lando.notesappkotlin.databinding.ActivityMainBinding
+import com.lando.notesappkotlin.databinding.CardViewBinding
 import com.lando.notesappkotlin.ui.views.UpdateNoteActivity
-import kotlinx.android.synthetic.main.card_view.view.*
 
 class NoteAdapter(note: ArrayList<Note>): RecyclerView.Adapter<NoteAdapter.ViewHolder>()
 {
@@ -52,6 +52,8 @@ class NoteAdapter(note: ArrayList<Note>): RecyclerView.Adapter<NoteAdapter.ViewH
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
+        val binding = CardViewBinding.bind(view)
+
         fun render(item: Note)
         {
             var noteTitle: TextView = itemView.findViewById(R.id.txtTitle)
@@ -69,7 +71,7 @@ class NoteAdapter(note: ArrayList<Note>): RecyclerView.Adapter<NoteAdapter.ViewH
                 itemView.context.startActivity(intent)
             }
 
-            itemView.btnDelete.setOnClickListener {
+            binding.btnDelete.setOnClickListener {
                 val noteAPI = NoteRemoteDataSource()
                 val noteID: Int = item.id
                 var itemPosition = adapterPosition
