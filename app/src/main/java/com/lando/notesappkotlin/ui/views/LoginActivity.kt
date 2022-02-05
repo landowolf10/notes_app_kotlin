@@ -36,7 +36,7 @@ class  LoginActivity : AppCompatActivity() {
                 binding.etPassword.text.toString()
             )
 
-            userAPI.login(user)
+            userAPI.login(user, this)
         }
     }
 }

@@ -27,7 +27,7 @@ class NotesActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        noteAdapter = NoteAdapter(noteList)
+        noteAdapter = NoteAdapter(noteList, this)
 
         val userID = intent.getIntExtra("user_id", 0)
 
@@ -61,7 +61,7 @@ class NotesActivity : AppCompatActivity() {
                 binding.etContent.text.toString()
             )
 
-            noteAPI.createNote(note, userID, noteAdapter)
+            noteAPI.createNote(note, userID, noteAdapter, this)
         }
 
         binding.etTitle.text.clear()

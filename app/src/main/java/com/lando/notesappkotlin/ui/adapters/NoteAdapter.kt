@@ -1,5 +1,6 @@
 package com.lando.notesappkotlin.ui.adapters
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +14,11 @@ import com.lando.notesappkotlin.databinding.ActivityMainBinding
 import com.lando.notesappkotlin.databinding.CardViewBinding
 import com.lando.notesappkotlin.ui.views.UpdateNoteActivity
 
-class NoteAdapter(note: ArrayList<Note>): RecyclerView.Adapter<NoteAdapter.ViewHolder>()
+class NoteAdapter(note: ArrayList<Note>, context: Context): RecyclerView.Adapter<NoteAdapter.ViewHolder>()
 {
     private lateinit var binding: ActivityMainBinding
-
     var noteList = note
+    var noteContext = context
 
     fun setData(note: ArrayList<Note>)
     {
@@ -77,7 +78,7 @@ class NoteAdapter(note: ArrayList<Note>): RecyclerView.Adapter<NoteAdapter.ViewH
                 val itemPosition = adapterPosition
 
                 noteList.removeAt(itemPosition)
-                noteAPI.deleteNote(noteID)
+                noteAPI.deleteNote(noteID, noteContext)
                 notifyItemRemoved(itemPosition)
             }
         }

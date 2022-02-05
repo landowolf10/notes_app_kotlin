@@ -1,5 +1,7 @@
 package com.lando.notesappkotlin.data.remote.source.note
 
+import android.content.Context
+import android.widget.Toast
 import com.lando.notesappkotlin.data.model.note.CreateNote
 import com.lando.notesappkotlin.data.model.note.UpdateNote
 import com.lando.notesappkotlin.data.remote.net.NoteRemoteApi
@@ -40,7 +42,7 @@ class NoteRemoteDataSource {
         }
     }
 
-    fun createNote(noteData: CreateNote, userID: Int, noteAdapter: NoteAdapter)
+    fun createNote(noteData: CreateNote, userID: Int, noteAdapter: NoteAdapter, context: Context)
     {
         CoroutineScope(Dispatchers.IO).launch {
             val response = service.addNote(noteData)
@@ -52,13 +54,13 @@ class NoteRemoteDataSource {
                     if (response.isSuccessful)
                     {
                         getUserNotes(userID, noteAdapter)
-                        //Toast.makeText(notesActivity, "New note created", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "New note created", Toast.LENGTH_LONG).show()
                     }
                 }
                 catch (error: HttpException)
                 {
                     print(error)
-                    //Toast.makeText(notesActivity, "Error: $error", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -71,10 +73,26 @@ class NoteRemoteDataSource {
         }
     }
 
-    fun deleteNote(noteID: Int)
+    fun deleteNote(noteID: Int, context: Context)
     {
         CoroutineScope(Dispatchers.IO).launch {
-            service.deleteNote(noteID)
+            val response = service.deleteNote(noteID)
+
+            withContext(Dispatchers.Main)
+            {
+                try
+                {
+                    if (response.isSuccessful)
+                    {
+                        Toast.makeText(context, "Note deleted successfully", Toast.LENGTH_LONG).show()
+                    }
+                }
+                catch (error: HttpException)
+                {
+                    print(error)
+                    Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 }

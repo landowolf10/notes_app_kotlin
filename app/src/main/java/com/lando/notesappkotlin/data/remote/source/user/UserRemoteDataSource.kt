@@ -1,5 +1,6 @@
 package com.lando.notesappkotlin.data.remote.source.user
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
@@ -23,7 +24,7 @@ class UserRemoteDataSource
 {
     val service: UserRemoteApi = RetrofitBuilder.getRetrofit().create(UserRemoteApi::class.java)
 
-    fun login(user: LoginRequest)
+    fun login(user: LoginRequest, context: Context)
     {
         CoroutineScope(Dispatchers.IO).launch {
             val response = service.login(user)
@@ -34,13 +35,15 @@ class UserRemoteDataSource
                 {
                     if (response.isSuccessful)
                     {
-                        /*val loginData = response.body()
-                        val intent = Intent(this@LoginActivity, NotesActivity::class.java)
+                        val loginData = response.body()
+                        val intent = Intent(context, NotesActivity::class.java)
+
+                        //print("LOGIN DATA: $loginData")
 
                         if (loginData != null)
                             intent.putExtra("user_id", loginData.loginData.userID)
 
-                        startActivity(intent)*/
+                        context.startActivity(intent)
                     }
                 }
                 catch (error: HttpException)
@@ -49,29 +52,5 @@ class UserRemoteDataSource
                 }
             }
         }
-
-        /*service.login(user).enqueue(object: Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-
-                val loginData = response.body()
-
-                Log.d("Request", user.toString())
-                Log.d("Response", loginData.toString())
-
-                if(loginData?.loginData != null)
-                {
-                    val intent = Intent(this@LoginActivity, NotesActivity::class.java)
-                    intent.putExtra("user_id", loginData.loginData.userID)
-                    startActivity(intent)
-                }
-                else
-                    Toast.makeText(applicationContext, "Invalid credentials, please verify", Toast.LENGTH_LONG).show()
-            }
-
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                Toast.makeText(applicationContext, "An error occurred!", Toast.LENGTH_LONG).show()
-                Log.e("Error", t.message.toString())
-            }
-        })*/
     }
 }

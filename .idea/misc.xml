@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/Android/notes_app_kotlin/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.17147922998986828" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1646403242147923" />
         <entry key="app/src/main/res/layout/activity_update_note.xml" value="0.19635416666666666" />
