@@ -38,8 +38,6 @@ class UserRemoteDataSource
                         val loginData = response.body()
                         val intent = Intent(context, NotesActivity::class.java)
 
-                        //print("LOGIN DATA: $loginData")
-
                         if (loginData != null)
                             intent.putExtra("user_id", loginData.loginData.userID)
 

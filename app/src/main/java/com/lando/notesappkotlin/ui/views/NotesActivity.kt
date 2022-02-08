@@ -49,7 +49,7 @@ class NotesActivity : AppCompatActivity() {
         val userID = intent.getIntExtra("user_id", 0)
 
         binding.btnAdd.setOnClickListener {
-            if (binding.etTitle.text.isEmpty() and binding.etContent.text.isEmpty())
+            if (binding.etTitle.text.isEmpty() or binding.etContent.text.isEmpty())
             {
                 Toast.makeText(this, "Please fill the boxes", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
@@ -62,9 +62,9 @@ class NotesActivity : AppCompatActivity() {
             )
 
             noteAPI.createNote(note, userID, noteAdapter, this)
-        }
 
-        binding.etTitle.text.clear()
-        binding.etContent.text.clear()
+            binding.etTitle.text.clear()
+            binding.etContent.text.clear()
+        }
     }
 }

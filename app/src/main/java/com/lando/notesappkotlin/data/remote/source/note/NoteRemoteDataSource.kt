@@ -12,9 +12,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import retrofit2.Response
 
 class NoteRemoteDataSource {
     private val service: NoteRemoteApi = getRetrofit().create(NoteRemoteApi::class.java)
+    //private lateinit var response: Response
 
     fun getUserNotes(userID: Int, noteAdapter: NoteAdapter)
     {
@@ -66,10 +68,26 @@ class NoteRemoteDataSource {
         }
     }
 
-    fun updateNote(updatedData: UpdateNote)
+    fun updateNote(updatedData: UpdateNote, context: Context)
     {
         CoroutineScope(Dispatchers.IO).launch {
-            service.updateNote(updatedData)
+            val response = service.updateNote(updatedData)
+
+            withContext(Dispatchers.Main)
+            {
+                try
+                {
+                    if (response.isSuccessful)
+                    {
+                        Toast.makeText(context, "Note updated successfully", Toast.LENGTH_LONG).show()
+                    }
+                }
+                catch (error: HttpException)
+                {
+                    print(error)
+                    Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 
