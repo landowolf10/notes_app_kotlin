@@ -9,14 +9,11 @@ import com.lando.notesappkotlin.data.model.user.login.LoginRequest
 import com.lando.notesappkotlin.data.model.user.login.LoginResponse
 import com.lando.notesappkotlin.data.remote.net.UserRemoteApi
 import com.lando.notesappkotlin.data.remote.source.RetrofitBuilder
-import com.lando.notesappkotlin.ui.views.LoginActivity
 import com.lando.notesappkotlin.ui.views.NotesActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 

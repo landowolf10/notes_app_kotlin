@@ -57,11 +57,8 @@ class NoteAdapter(note: ArrayList<Note>, context: Context): RecyclerView.Adapter
 
         fun render(item: Note)
         {
-            val noteTitle: TextView = itemView.findViewById(R.id.txtTitle)
-            val noteContent: TextView = itemView.findViewById(R.id.txtContent)
-
-            noteTitle.text = item.title
-            noteContent.text = item.content
+            binding.txtTitle.text = item.title
+            binding.txtContent.text = item.content
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, UpdateNoteActivity::class.java)
